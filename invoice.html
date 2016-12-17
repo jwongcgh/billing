@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- modified from a bootsnip template -->
+    <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="billing.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+</head>
+
+<body>
+<div id="wrapper1" class="container">
+    <div class="row">
+        <section>
+            <div class="wizard">
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+<!-- start @@@ wizerd-inner @@@ -->
+<div class="wizard-inner">
+    <div class="connecting-line"></div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="disabled">
+            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Cart">
+                <span class="round-tab">
+                    <i class="glyphicon glyphicon-shopping-cart"></i>
+                </span>
+            </a>
+        </li>
+        <li role="presentation" class="disabled">
+                        <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </span>
+                        </a>
+                    </li>
+        <li role="presentation" class="disabled">
+            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Confirm Transaction">
+                <span class="round-tab">
+                    <i class="glyphicon glyphicon-picture"></i>
+                </span>
+            </a>
+        </li>
+        <li role="presentation" class="active">
+        <!-- <li role="presentation" > -->
+            <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                <span class="round-tab">
+                    <i class="glyphicon glyphicon-ok"></i>
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- end @@@ wizerd-inner @@@@@ -->
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+<!-- start form @@@@@@@@@@@@@@@ -->
+
+<form role="form">
+    
+<!-- *** End Page 3 / Step 3 ***************************************************** -->
+<!-- *** Completed Order ********************************************************* -->
+<!-- *** Start Page 4 / Step 4 *************************************************** -->
+
+<div class="tab-pane" role="tabpanel" id="complete">
+    <div class="step44">
+        <div id="wrapper2" class="container">
+            
+<section>
+<div id="thanks" class="row">
+    <div class="jumbotron">
+        <div class="container">
+            <h2> Thank You for your support </h2>
+            <h4>Tailgator</h4>
+            <h5> 2354 Gator Lane, Grilled Meat, TX, 77001. </h5>
+        </div>
+    </div>
+</div>
+<!-- Invoice below -->
+<div id="colInv" class="col-md-6">
+<!-- row 1 -->
+<div class="row">
+<hr>
+    <div class="col-md-12">
+        <div class="invoice-title">
+            <h2>Invoice</h2>
+            <h3 class="pull-right">Order # 00200</h3>
+        </div>
+        <hr>
+        <div class="row">
+             <div class="col-xs-6">
+                <address>
+                    <strong>Billed To:</strong>
+                    <br>
+                    <span id="address">
+                        Dr. Jekyll<br>
+                        234 Main<br>
+                        Apt. 4B<br>
+                        Springfield, ST 54321
+                    </span>
+                </address>
+            </div>
+            <div class="col-xs-6 text-right">
+                <address>
+                    <strong>Deliver To:</strong>
+                    <br>
+                    <span id="deliverTo2">
+                        Mr. Hyde<br>
+                        1234 Main<br>
+                        Apt. 4B<br>
+                        Springfield, ST 54321
+                    </span>
+                </address>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <address>
+                    <strong>Payment Method:</strong>
+                    <br> Paypal <br>
+                </address>
+            </div>
+            <div class="col-xs-6 text-right">
+                <address>
+                    <strong>Order Date:</strong>
+                    <br> December 17, 2016
+                    <br>
+                    <br>
+                </address>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- row 1 -->
+<!-- row 2 -->
+<div id="colEve" class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><strong>Order Summary</strong></h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="tableInv table table-condensed">
+                        <thead>
+                            <tr>
+                                <td><strong></strong></td>
+                                <td><strong>Item</strong></td>
+                                <td class="text-center"><strong>Quantity</strong></td>
+                                <td class="text-center"><strong>Price</strong></td>
+                                <td class="text-right"><strong>Totals</strong></td>
+                            </tr>
+                        </thead>
+                        <tbody class="rows_invoice">
+                                <!-- here goes items list -->
+                        </tbody>
+                            <!-- ****************** -->
+                        <tbody>
+                            <tr>
+                                <td class="no-line"></td>
+                                <td class="no-line"></td>
+                                <td class="no-line"></td>
+                                <td class="no-line"><strong>Subtotal:</strong></td>
+                                <td class="no-line text-right subtotal"></td>
+                            </tr>
+                            <tr>
+                                <td class="no-line"></td>
+                                <td class="no-line"></td>
+                                <td class="no-line"></td>
+                                <td class="no-line"><strong>Shipping:</strong></td>
+                                <td class="no-line text-right shipping"></td>
+                            </tr>
+                            <tr>
+                                <td class="no-line"></td>
+                                <td class="no-line"></td>
+                                <td class="no-line"></td>
+                                <td class="no-line"><strong>Tax</strong></td>
+                                <td class="no-line text-right tax"></td>
+                            </tr>
+                            <tr>
+                                <td class="no-line"></td>
+                                <td class="no-line"></td>
+                                <td class="no-line"></td>
+                                <td class="no-line"><strong>Total:</strong></td>
+                                <td class="no-line text-right totalCharge"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- row 2 -->
+</div>
+<!-- end invoice above -->
+
+<!-- start events -->
+<div class="col-md-6">
+<hr>
+<div id="events" class="col-md-12 container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-group" id="accordion">
+                
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-thumbs-up">
+                            </span><strong>    Upcoming NFL Events</strong></a>
+                        </h4>
+                    </div>
+
+                    <div id="tailg" class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-star">
+                                </span><strong>     We are Tailgator</strong></a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="panel-group">
+                                    <div class="well well-sm odd">
+                                        <strong>Yes We Are</strong>
+                                    </div>
+                                    <div class="well well-sm odd">
+                                        <strong>We are Coders</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- </div> -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-user">
+                                </span><strong>    About Us</strong></a>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="panel-group">
+                                    <div class="well well-sm odd">
+                                        <small>Please call us at:</small><br>
+                                        <strong>(123) 567-9834</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="panel-group">
+                                <div class="well well-sm odd">
+                                        Come visit us again.
+                                </div>
+                                <div class="well well-sm odd">
+                                        <p class="when">Saturday, December 17</p>
+                                        <p><small>7:25 PM CST</small></p>
+                                        <strong>Dolphins vs Jets</strong>
+                                </div>
+                                <div class="well well-sm odd">
+                                        <p class="when">Sunday, December 18</p>
+                                        <p><small>12:00 PM CST</small></p>
+                                        <strong>Browns vs Bills</strong>
+                                </div>
+                                <div class="well well-sm odd">
+                                        <p class="when">Sunday, December 18</p>
+                                        <p><small>12:00 PM CST</small></p>
+                                        <strong>Lions vs Giants</strong>
+                                </div>
+                                <div class="well well-sm odd">
+                                        <p class="when">Thursday, December 22</p>
+                                        <p><small>7:25 PM CST</small></p>
+                                        <strong>Giants vs Eagles</strong>
+                                </div>
+                                <div class="well well-sm odd">
+                                        <p class="when">Saturday, December 24</p>
+                                        <p><small>12:00 PM CST</small></p>
+                                        <strong>Falcons vs Panthers</strong>
+                                </div>
+                                <div class="well well-sm odd">
+                                        <p class="when">Saturday, December 24</p>
+                                        <p><small>12:00 PM CST</small></p>
+                                        <strong>Dolphins vs Bills</strong>
+                                </div>     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+</div>
+<!-- end events -->
+
+</section>
+        </div>
+        <!-- wrapper 2 -->
+    </div>
+    <!-- end container/wrapper -->
+</div>
+<!-- end tab panel complete -->
+
+<!-- *** End Page 4 / Step 4 ***************************************************** -->
+<!-- *** Completed Order ********************************************************* -->
+<!-- ***************************************************************************** -->
+
+ <div class="clearfix"></div>
+    <!-- </div> -->
+</form>
+<!-- end form @@@@@@@@@@@@@@@@@ -->
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+            </div>
+        </section>
+    </div>
+</div>
+<script type="text/javascript" src="billing.js"></script>
+</body>
+
+</html>
