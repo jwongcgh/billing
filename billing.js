@@ -5,7 +5,6 @@ $(document).ready(function() {
 // ******************************************************************************* //
 
 // Initialize Firebase
-  // Initialize Firebase
   var config = {
     apiKey: "AIzaSyCA4E2Fdn7pj2xL_KoA6rjwd1pjhlAidlw",
     authDomain: "test-4dbd3.firebaseapp.com",
@@ -37,7 +36,7 @@ $(document).ready(function() {
     //     { foodName: 'utensils', price: 12.99, quantity: 25 }
     // ]
 
-    // // store
+    // store
     // localStorage.clear();
     // localStorage.setItem("myarray", JSON.stringify(myarray));
 
@@ -278,10 +277,9 @@ $("#shipInfo").on("click", function () {
         zip = $("#zip").val().trim();
         email = $("#email1").val().trim();
         phone = $("#phone").val().trim();
-        delivDate = document.getElementById("datepick").value
 
-    // console.log("date: " + document.getElementById("datepick").value);
-        console.log(delivDate);
+
+    // delivDate = $("#date").val();
 
 
     
@@ -296,7 +294,7 @@ $("#shipInfo").on("click", function () {
         zip: zip,
         email: email,
         phone: phone,
-        delivDate: delivDate,
+        // delivDate : delivDate,
     });
 
 
