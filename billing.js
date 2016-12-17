@@ -5,12 +5,13 @@ $(document).ready(function() {
 // ******************************************************************************* //
 
 // Initialize Firebase
+  // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyBMWTK4u_9IMZLWtQMVO3YYWoxGCdXZdsc",
-    authDomain: "prown-e0b61.firebaseapp.com",
-    databaseURL: "https://prown-e0b61.firebaseio.com",
-    storageBucket: "prown-e0b61.appspot.com",
-    messagingSenderId: "709868742724"
+    apiKey: "AIzaSyCA4E2Fdn7pj2xL_KoA6rjwd1pjhlAidlw",
+    authDomain: "test-4dbd3.firebaseapp.com",
+    databaseURL: "https://test-4dbd3.firebaseio.com",
+    storageBucket: "test-4dbd3.appspot.com",
+    messagingSenderId: "258893315250"
   };
   firebase.initializeApp(config);
 
@@ -36,7 +37,7 @@ $(document).ready(function() {
     //     { foodName: 'utensils', price: 12.99, quantity: 25 }
     // ]
 
-    // store
+    // // store
     // localStorage.clear();
     // localStorage.setItem("myarray", JSON.stringify(myarray));
 
