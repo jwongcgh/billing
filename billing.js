@@ -27,6 +27,7 @@ $(document).ready(function() {
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 // Remove or comment out before deploying @@@@@@@@@@@@@@@@@@@@@@@@ //
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+// store
 
     var myarray = [
         { foodName: 'burger', price: 19.99, quantity: 3 },
@@ -36,7 +37,7 @@ $(document).ready(function() {
         { foodName: 'utensils', price: 12.99, quantity: 25 }
     ]
 
-    store
+    
     localStorage.clear();
     localStorage.setItem("myarray", JSON.stringify(myarray));
 
