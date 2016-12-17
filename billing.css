@@ -3,22 +3,31 @@ html, body {
     margin: 0 auto;
 }
 
-#wrapper {
+#wrapper1, #wrapper2 {
     max-width: 960px;
 }
 
 
 .item_div {
     border: blue dotted 1px;
-    height:;
+    height:
 }
 
-.updatte_item_Butt {
+.update_item_Butt {
     /*margin: 0;
     padding: 0;
     width: 100%;
 */
 }
+
+#colInv, #colEve {
+    margin-top: 20px;
+}
+
+#tailg { 
+    margin-top: 5px;
+ }
+
 
 #data_td_4 {
     padding: 1px;
@@ -38,16 +47,61 @@ a:visited {
     color: white;
 }
 
-iframe:focus { 
-    outline: none;
+
+/***********************************************************/
+/*** invoice ***********************/
+/***********************************************************/
+
+.jumbotron {
+    text-align: center;
+    padding: 20px 0 20px 0;
+    margin-top: 5px;
+
+}
+
+.invoice-title h2, .invoice-title h3 {
+    display: inline-block;
+}
+
+.table > tbody > tr > .no-line {
+    border-top: none;
+}
+
+.table > thead > tr > .no-line {
+    border-bottom: none;
+}
+
+.table > tbody > tr > .thick-line {
+    border-top: 2px solid;
+}
+
+.well-sm {
+    margin: 5px;
+    padding: 5px;
+}
+/***********************************************************/
+/*** paypal button and pricing table ***********************/
+/***********************************************************/
+
+/*#paypalCont {
+    display: inline-block;
+}*/
+
+#pay_info {
+    margin-top: 20px;
+}
+
+.well {
+    text-align: center;
+    width: 100%;
+
 }
 
 iframe[seamless] { 
     align-content: center;
     display: block;
-    /*margin: 50px;
-    padding: 10px;*/
-    frameBorder: 0;
+    overflow: visible;
+    border: none;
     /*width: 300px;
     height: 200px;*/
     /*border-top: #c00 1px dotted;
@@ -57,23 +111,31 @@ iframe[seamless] {
 }
 
 #paypalButt {
-    /*width: 50px;
-    height: 150px;*/
-    padding: 25px 0 0 25px;
-    margin: 0 auto;
+    padding: 0;
+}
 
+.borderless tbody tr td {
+    border: none;
+}
+
+.borderless thead tr th {
+    border: none;
 }
 
 
+/***********************************************************/
+/*** events accordion ***********************/
+/***********************************************************/
+
+#events, #thanks, .jumbotron {
+    margin: 0;
+    padding: 0;
+}
 
 
-
-
-
-
-
-
-/*###################*/
+/***********************************************************/
+/*** carusel template ***********************/
+/***********************************************************/
 
         .wizard {
     margin: 20px auto;

@@ -1,31 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>paypal</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/billing.css">
-	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>paypal</title>
+    <link rel="stylesheet" type="text/css" href="billing.css">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
 </head>
+
 <body>
-
-
-<div id="paypalButt1">
-
+    <!-- <div class="row" -->
+    <div class="col-md-4">
+        <div class="well">
+            <!-- <div class="papalCont" -->
+            <!-- not hosted button -->
+            <form id="paypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_xclick">
+                <input type="hidden" name="business" value="YCXE2TEUYM56Q">
+                <input type="hidden" name="lc" value="US">
+                <input type="hidden" name="item_name" value="Tailgator Package">
+                <input id="subtpay" type="hidden" name="amount" value="">
+                <input type="hidden" name="currency_code" value="USD">
+                <input type="hidden" name="button_subtype" value="services">
+                <input type="hidden" name="no_note" value="0">
+                <input type="hidden" name="cn" value="Add special instructions to the seller:">
+                <input type="hidden" name="no_shipping" value="2">
+                <input type="hidden" name="tax_rate" value="8.250">
+                <input type="hidden" name="shipping" value="59.99">
+                <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
+                <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+            </form>
+        </div>
+    </div>
+    <!-- </div> -->
+    <!-- 
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
 <input type="hidden" name="hosted_button_id" value="SN43FQH4F7J8Q">
 <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="20" height="20">
-</form>
-
-</div>
-<!-- <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+</form> -->
+    </div>
+    <!-- <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
 <input type="hidden" name="hosted_button_id" value="RUK7LXV6A2TGN">
 <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form> -->
-
-
-
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="billing.js"></script>
+    <!-- <script>
+    $('#subtpay').val('5');
+    console.log($('#subtpay').val());
+    </script> -->
 </body>
+
 </html>

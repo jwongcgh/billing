@@ -1,20 +1,60 @@
 $(document).ready(function() {
 
+// ******************************************************************************* //
+// Start *** firebase user data *** //
+// ******************************************************************************* //
+
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBMWTK4u_9IMZLWtQMVO3YYWoxGCdXZdsc",
+    authDomain: "prown-e0b61.firebaseapp.com",
+    databaseURL: "https://prown-e0b61.firebaseio.com",
+    storageBucket: "prown-e0b61.appspot.com",
+    messagingSenderId: "709868742724"
+  };
+  firebase.initializeApp(config);
+
+    // Reference to the database service
+    var database = firebase.database();
+
     // ******************************************************************************* //
     // Start *** using array object *** //
     // ******************************************************************************* //
 
     var table_columns = 6;
+    var array = [];
+    var next_step = true;
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+// Remove or comment out before deploying @@@@@@@@@@@@@@@@@@@@@@@@ //
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 
-    var array = [
-        { foodName: 'burger', price: 19.99, quantity: 3 },
-        { foodName: 'hotdog', price: 22.65, quantity: 15 },
-        { foodName: 'shrimp', price: 24.85, quantity: 22 },
-        { foodName: 'package 1', price: 98.99, quantity: 1 },
-        { foodName: 'utensils', price: 12.99, quantity: 25 },
-    ]
+    // var myarray = [
+    //     { foodName: 'burger', price: 19.99, quantity: 3 },
+    //     { foodName: 'hotdog', price: 22.65, quantity: 15 },
+    //     { foodName: 'shrimp', price: 24.85, quantity: 22 },
+    //     { foodName: 'package 1', price: 98.99, quantity: 1 },
+    //     { foodName: 'utensils', price: 12.99, quantity: 25 }
+    // ]
 
-    populate()
+    // store
+    // localStorage.clear();
+    // localStorage.setItem("myarray", JSON.stringify(myarray));
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+
+    //retrieve
+    array = JSON.parse(localStorage.getItem("myarray"));
+
+    // display object values
+    // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& //
+                for (var a=0; a < array.length; a++) {
+            console.log("value initial: " + Object.values(array[a]));
+   } 
+    // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& //
+
+
+    populate();
 
 // ******************************************************************************* //
 // Start *** populates table with cart items *** //
@@ -31,7 +71,7 @@ $(document).ready(function() {
             for (var i = 0; i < table_columns; i++) {
                 var newData = $("<td>");
 
-                if (i == 2 || i == 3) {
+                if (i == 2 || i == 3 || i==4) {
                     newData.addClass("text-center");    // formatting columns
                 }
                 if (i == array.length) {
@@ -64,6 +104,7 @@ $(document).ready(function() {
 
             $("#rows").append(newRow);
 
+            // *** populate page 1 - order details
             // target columns and populate cells with pertinent cart information from columns 1 to 6
             var RowTds = $('table').children().eq(1).children('tr').eq(j).children('td');
 
@@ -74,10 +115,51 @@ $(document).ready(function() {
             RowTds.eq(4).html(); // update list item button: "button here"
             RowTds.eq(5).text((array[j].price * array[j].quantity).toFixed(2));
 
-        } // end for-loop populating cart
+        } // end for-loop populating Order Details cart
 
         charges();  //
     } // end populate function
+
+
+    function invoice_pop() {
+
+            $(".rows_invoice").html("");
+// Start *** populate page 3 - invoice *** //
+
+               for (var k = 0; k < array.length; k++) {
+
+            // adds new row in table when needed
+            var newRow = $("<tr>");
+
+            // append the necessary number of columns in table
+            for (var i = 0; i < table_columns - 1 ; i++) {
+                var newData = $("<td>");
+
+                if (i == 2 || i == 3) {
+                    newData.addClass("text-center");    // formatting columns
+                }
+                if (i >= array.length - 1) {
+                    newData.addClass("text-right");     // formatting columns
+                }
+
+                newRow.append(newData);
+            } // end for-loop appending columns to each row
+
+            $(".rows_invoice").append(newRow);
+            
+            // *** populate page 1 - order details
+            // target columns and populate cells with pertinent cart information from columns 1 to 6
+            var RowTds = $('.tableInv').children().eq(1).children('tr').eq(k).children('td');
+
+            RowTds.eq(0).text(k + 1);
+            RowTds.eq(1).text(array[k].foodName); // item id value: e.g. burger
+            RowTds.eq(2).text(array[k].price); // item each
+            RowTds.eq(3).text(array[k].quantity); // item quantity: array[j].quantity
+            RowTds.eq(4).text((array[k].price * array[k].quantity).toFixed(2));
+
+        } // end for-loop populating Invoice
+
+    }   // end function populate invoice
 
 // ******************************************************************************* //
 // Start *** cart charges calculation *** //
@@ -86,29 +168,41 @@ $(document).ready(function() {
     function charges() {
         var subtotal = 0.00;
         var totalCharge = 0.00;
-        var shipping = 20;
+        var shipping = 59.99;
         var tax = 0.0825;
 
         // adds items prices
         for (var i = 0; i < array.length; i++) {
             subtotal += parseFloat(array[i].price * array[i].quantity);
-            $("#subtotal").html(subtotal.toFixed(2));
+            $(".subtotal").html(subtotal.toFixed(2));
         }
 
-        $("#tax").html((subtotal * tax).toFixed(2));
+        $(".tax").html((subtotal * tax).toFixed(2));
 
         if (subtotal == 0) {
             shipping = 0;
-            $("#shipping").html("0.00");
+            $(".shipping").html("0.00");
         } else {
-            $("#shipping").html(shipping.toFixed(2));
+            $(".shipping").html(shipping.toFixed(2));
         }
 
-        totalCharge = subtotal * (1 + tax) + shipping;
-        $("#totalCharge").html(totalCharge.toFixed(2));
+        totalCharge = subtotal * (1 + tax) + shipping
+        $(".totalCharge").html(totalCharge.toFixed(2));
+        // console.log(typeof totalCharge.toFixed(2));
+        // console.log(totalCharge);
+        // console.log(typeof totalCharge.toFixed(2));
 
+        // go-to populate invoice
+        invoice_pop();
+
+// ******************************************************************************* //
+// Start *** pass charge to paypal *** //
+// ******************************************************************************* //
+
+    toPayPal = subtotal.toFixed(2);
+    $('#subtpay').val(toPayPal);
+    // console.log($('#subtpay').val());
     } // end charges function
-
 
 // ******************************************************************************* //
 // Start *** update cart at checkout *** //
@@ -123,15 +217,21 @@ $(document).ready(function() {
             if (inputVal !== "") {
                 // updates locally quantity updated in array
 
-// !!! have to update databse too !!! 
-// !!! have to update databse too !!! 
-// !!! have to update databse too !!! 
-
+            // database cart update
                 array[$(this).data("update")].quantity = inputVal;
+                myarray = array;
+                localStorage.setItem("myarray", JSON.stringify(myarray));
 
-// !!! have to update databse too !!! 
-// !!! have to update databse too !!! 
-// !!! have to update databse too !!! 
+                // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& //
+                // checking array has been updated in database
+
+                array = JSON.parse(localStorage.getItem("myarray"));
+                for (var a=0; a < array.length; a++) {
+                    console.log("value after: " + Object.values(array[a]));
+                } 
+
+                // end checking array has been updated in database
+                // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& //
 
                 $('table').children().eq(1).children('tr').eq($(this).data("update")).children('td').eq(5).html((array[$(this).data("update")].price * inputVal).toFixed(2));
             } else {
@@ -142,71 +242,180 @@ $(document).ready(function() {
         }); // end update order
 
 // ******************************************************************************* //
-// Start *** go back to mainpage *** //
+// Start *** shipping address form *** //
 // ******************************************************************************* //
 
-// !!! have to update databse too !!! 
-// !!! have to update databse too !!! 
-// !!! have to update databse too !!! 
+    // var billingInfo = {};
+    var firstName;
+    var lastName;
+    var email;
+    var zip;
+    var city;
+    var state;
+    var address;
+    var phone;
+    var delivDate = "12/10/1978";
+    var emptyfield = 0
+    // start local test data
+    // var firstName = "Howdy";
+    // var lastName = "Hey";
+    // var deliverTo;
+    // var email = "hellobuddy@gmail.com";
+    // var zip = 12345;
+    // var city = "happy";
+    // var state = "tx";
+    // var address = "123 bright av";
+    // var phone = 123456789;
+    // end local test data
+
+$("#shipInfo").on("click", function () {
+        firstName = $("#firstName").val().trim();
+        lastName = $("#lastName").val().trim();
+        address = $("#address1").val().trim();
+        city = $("#city").val().trim();
+        state = ($("#state").val().trim()).toUpperCase();
+        zip = $("#zip").val().trim();
+        email = $("#email1").val().trim();
+        phone = $("#phone").val().trim();
+        delivDate = document.getElementById("datepick").value
+
+    // console.log("date: " + document.getElementById("datepick").value);
+        console.log(delivDate);
+
+
+    
+
+// database store shipping info
+        database.ref('/users/' + "shipping").set({
+        firstName: firstName,
+        lastName: lastName,
+        address: address,
+        city: city,
+        state: state,
+        zip: zip,
+        email: email,
+        phone: phone,
+        delivDate: delivDate,
+    });
+
+
+
+	    emptyfield = firstName.length * lastName.length * address.length * city.length * state.length *
+                        zip.length * phone.length;
+        console.log("emotyfield: " + emptyfield);
+        // console.log(delivDate.length);
+        // console.log(delivDate);
+
+        $("#deliverTo").html(firstName + " " + lastName + "<br>" +
+                    address + "<br>" +
+                    city + "<br>" +
+                    state + ", " + zip);
+
+        $("#deliverTo2").html(firstName + " " + lastName + "<br>" +
+                    address + "<br>" +
+                    city + "<br>" +
+                    state + ", " + zip);
+
+        checkInputs();
+
+});
+
+// ******************************************************************************* //
+// Start *** basic user input validation - shipping info  *** //
+// ******************************************************************************* //
+
+
+function checkInputs () {
+
+        if (emptyfield == 0 || firstName.match(/[^a-zA-Z]/) || lastName.match(/[^a-zA-Z]/) || state.length !==2 ||
+            state.match(/[^a-zA-Z]/) || zip.length !== 5 || zip.match(/[^0-9]/) ||
+            phone.match(/[^\d]/) || phone.length !== 9) {
+            console.log("invalid format");
+            // $("#invalid_entry").html("Please correct invalid entries");
+            next_step = false;
+            console.log("next_step: " + next_step);
+        } else {
+            next_step = true;
+            console.log("next_step: " + next_step);
+        }
+
+        // return false;
+}
+
+// missing basic email check
+// pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"    
+    
+// ******************************************************************************* //
+// Start *** read databse for shipping info  *** //
+// ******************************************************************************* //
+
+    database.ref('/users/' + 'shipping').on("value", function(snapshot){
+    if (snapshot.child('email').exists()) {
+    firstName = snapshot.val().firstName;
+    lastName = snapshot.val().lastName;
+    address = snapshot.val().address;
+    city = snapshot.val().city;
+    state = snapshot.val().state;
+    zip = snapshot.val().zip;
+    email = snapshot.val().email;
+    phone = snapshot.val().phone; 
+
+    // console.log("firstName: " + firstName);
+    // console.log("lastName: " + lastName);
+    //     console.log("address: " + address);
+    //     console.log("city: " + city);
+    //     console.log("state: " + state);
+    //     console.log("zip: " + zip);
+    //     console.log("email: " + email);
+    //     console.log(phone);
+        // console.log(delivDate);  
+    } else {
+        console.log("user does not exist");
+    }      
+});
+
+// ******************************************************************************* //
+// Start *** shipping address box check autopulate user info  *** //
+// ******************************************************************************* //
+
+$(document).on('change', '#checkbox', function() {
+    if(this.checked) {
+        console.log("checkbox is checked");
+        $("#firstName").attr("value", firstName);
+        $("#lastName").attr("value", lastName);
+        $("#address1").attr("value", address);
+        $("#city").attr("value", city);
+        $("#state").attr("value", state);
+        $("#zip").attr("value", zip);
+        $("#phone").attr("value", phone);
+        $("#email1").attr("value", email);
+    } else {
+        $("#firstName").attr("placeholder", "");
+        $("#lastName").attr("placeholder", "");
+        $("#address1").attr("placeholder", "");
+        $("#city").attr("placeholder", "");
+        $("#state").attr("placeholder", "");
+        $("#zip").attr("placeholder", "");
+        $("#phone").attr("placeholder", "");
+        $("#email1").attr("placeholder", "");
+    }
+});
+
+// ******************************************************************************* //
+// Start *** cancel & go back to mainpage *** //
+// ******************************************************************************* //
+
+// !!! Not working !!! 
+// !!! Not working !!! 
+// !!! Not working !!! 
 
     $("#cancel").on("click", function() {
         // empty order array in database
+        localStorage.clear();
+        array = [];
+
+        // window.location.href = "index.html";
     }); // end cancel order
-
-    $("#save_cart").on("click", function(){
-        // update database cart
-    })
-
-
-// ******************************************************************************* //
-// Start *** Shippin Information Form *** //
-// ******************************************************************************* //
-    var shipAddr;
-
-    $("#shipInfo").on("click", function() {
-        var firstName = $("#firstName").val().trim();
-        var lastName = $("#lastName").val().trim();
-        var address1 = $("#address1").val().trim();
-        var address2 = $("#address2").val().trim();
-        var city = $("#city").val().trim();
-        var state = $("#state").val().trim();
-        var zipCode = $("#zip").val().trim();
-        var email1 = $("#email1").val().trim();
-        var email2 = $("#email2").val().trim();
-        var phone = $("#phone").val().trim();
-
-        // if (zipcode !== )
-
-
-
-
-
-        var shipAddr = [
-            {firstName: firstName,
-            lastName: lastName,
-            address1: address1,
-            address2: address2,
-            city: city,
-            state: state,
-            zipCode: zip,
-            email1: email1,
-            email2: email2,
-            phone: phone,}
-        ]
-
-        localStorage.setItem("shipAddr", shipAddr);
-
-
-        return false;
-    });
-    
-    localStorage.getItem("shipAddr");
-    // console.log(shipAddr[0].firstName);
-
-
-
-
-
 
 
 // ******************************************************************************* //
@@ -217,7 +426,7 @@ $(document).ready(function() {
 // ******************************************************************************* //
 
     //Initialize tooltips
-    $('.nav-tabs > li a[title]').tooltip();
+    // $('.nav-tabs > li a[title]').tooltip();
     
     //Wizard
     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
@@ -229,14 +438,20 @@ $(document).ready(function() {
         }
     });
 
-    $(".next-step").click(function (e) {
 
-        var $active = $('.wizard .nav-tabs li.active');
+    $(".next-step").click(function (e) {
+        if (next_step) {
+         var $active = $('.wizard .nav-tabs li.active');
         $active.next().removeClass('disabled');
         nextTab($active);
-
+        } else {
+            console.log("invalid form entry");
+        }
+        next_step = false;
+        console.log(next_step);
     });
-    $(".prev-step").click(function (e) {
+
+$(".prev-step").click(function (e) {
 
         var $active = $('.wizard .nav-tabs li.active');
         prevTab($active);
